@@ -1,0 +1,440 @@
+body{
+    margin:0;
+    padding:0;
+    font-family: 'Raleway',sans-serif;
+    overflow-x: hidden;
+    height:100%;
+
+}
+#box{
+    height:100%;
+    width:100%;
+    background:white;
+    border-radius: absolute;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+#login-main{
+    height:100%;
+    width:48%;
+    border-radius: 0px;
+    position:absolute;
+    top:50%;
+    left: 76%;
+    transform:translate(-50%,-50%);
+    z-index: 999;
+    background: linear-gradient(-45deg, #8e2de2, #4a00e0);
+    background-size: cover;
+    background-position: center;
+   
+
+}
+
+#registration-main{
+    height:100%;
+    width:48%;
+    border-radius: 0px;
+    position:absolute;
+    top:50%;
+    left: 23%;
+    transform:translate(-50%,-50%);
+    z-index: 999;
+    background: linear-gradient(-45deg, #8e2de2, #4a00e0);
+    background-size: cover;
+    background-position: center;
+    
+}
+
+#loginform,#signupform{
+    position:absolute;
+    top:50%;
+    left:75%;
+    transform:translate(-50%,-50%);
+    
+
+}
+#loginform{
+    top:45%;
+    left:23%;
+    /* visibility:hidden; */
+}
+#loginform h1, #signupform h1{
+    font-family: 'Raleway',sans-serif;
+    font-size: 54px;
+    background: linear-gradient( -45deg
+ , rgb(142, 45, 226), rgb(74, 0, 224));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-left: 20%;
+}
+.forgot_password_heading{
+    padding-left: 19px !important;
+    font-size: 37px !important;
+    padding-bottom: 54px;
+}
+.verify_otp_heading{
+    padding-left: 96px !important;
+    font-size: 37px !important;
+    padding-bottom: 54px;
+}
+.update_password_heading {
+    padding-left: 16px !important;
+    font-size: 37px !important;
+    padding-bottom: 54px;
+}
+.form-group {
+    line-height: 38px;
+}
+
+#loginform input, #signupform input{
+    height: 43px;
+    padding-left: 18px;
+    width: 91%;
+    border: 0;
+    outline: none;
+    border: 1px solid #bfbdc7;
+    margin: 5px;
+    background: #d6d4d7;
+}
+div#signupform,div#loginform {
+    width: 26%;
+}
+.signup_next_btn{
+    float:right;
+    margin-right: 14px;
+    margin-right: -2px;
+}
+input::placeholder{
+    color:rgb(179, 177, 177);
+}
+input:focus{
+    border: 1px solid #3200ff  !important;
+    border-width: 0 0 2px !important;
+}
+.form-labels{
+    padding:10px;
+}
+#loginform button, #signupform button{
+    height: 41px !important;
+    width: 121px !important;
+    background-color: #4723D9;
+    font-family: 'Raleway',sans-serif;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    margin-top: 30px;
+    margin-left: 75px;
+    color: #fff;
+    float:right;
+}
+.verification_btn button{
+    height: 41px !important;
+    width: 121px  !important;
+    background-color: #4723D9  !important;
+    font-family: 'Raleway',sans-serif  !important;
+    font-size: 16px  !important;
+    border: none  !important;
+    outline: none  !important;
+    border-radius: 3px  !important;
+    margin-top: 30px  !important;
+    color: #fff  !important;
+}
+#loginBtn, #signupBtn{
+    height:49px;
+    width:183px;
+    background:transparent;
+    color:#fff;
+    border:1px solid #fff;
+    border-radius: 26px;
+    outline:none;
+    position:absolute;
+    transform:translate(-50%,-50%);
+    transition: all 0.01s;
+    margin:100px 0 0 50px;
+    cursor: pointer;
+}
+#signupBtn{
+    left: 42%;
+
+}
+#loginBtn{
+    left:40%;
+}
+#loginmsg{
+    visibility: visible;
+}
+#loginBtn:hover,#signUpBtn:hover{
+    color:#fff;
+    cursor:pointer;
+}
+#loginmsg, #signupmsg{
+    font-family: 'Raleway',sans-serif;
+    font-size:25px;
+    color: #fff;
+    position:absolute;
+    top:35%;
+    left:75%;
+    transform:translate(-50%,-50%);
+    z-index: 1;
+
+}
+#signupmsg{
+    left: 54%;
+    width: 100%;
+    text-align: center;
+}
+#loginmsg{
+    left: 49%;
+    width: 100%;
+    text-align: center;
+}
+
+#mobile-view,.mobile-view-signup{
+    visibility: hidden;
+}
+.fieldWrapper {
+    padding-bottom: 21px;
+}
+
+input#id_username.errors,input#id_password.errors,input#id_PhoneNumber.errors,input#code.errors, input#id_phonenumber.errors{
+    border: 1px solid red;
+}
+.errorlist{
+    list-style-type: none;
+}
+div.error,.errorlist {
+    color:red;
+    padding: 8px 107px 8px 7px;
+}
+@media only screen and (max-width:768px){
+    #loginform{
+        width:100%;
+    }
+    #mobile-view{
+        visibility: visible;
+    }
+    body{
+        background: #fff;
+    }
+    #box{
+        display:none;
+    }
+    
+   .mobile-view-signup{
+       visibility: visible;
+   }
+   
+    #loginform,#signupform{
+        height: 91%;
+        width: 100%;
+        position: absolute;
+        top: 9%;
+        left:0% ;
+        transform: none;
+    }
+    button#create-accountbtn {
+        margin-top: 22.5%;
+        width: 100% !important;
+        background: black;
+    }
+    button#create-accountbtn.loginBtn {
+        position: relative;
+        margin-top: 14%;
+        margin-right: 0%;
+    }
+    button#create-accountbtn.verification {
+        position: relative;
+        margin-top: 42%;
+    }
+    div#signupform.verification {
+        margin-top: 21%;
+        height: 79%;
+    }
+    #loginform button, #signupform button{
+        margin-left:0%;
+        margin-right: 26px;
+    }
+    #loginform h1, #signupform h1 {
+       
+        padding-left: 0%;
+    }
+    #signupform h1{
+        padding-left: 20%;
+    }
+    #create-accountbtn{
+        position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 79%;
+    left: 0%;
+    width: 100% !important;
+    border-radius: 0  !important;
+    }
+    .form-heading{
+        text-align: center;
+    }
+    #loginform input, #signupform input{
+        width:90%;
+    }
+    .login-btn-mobileView{
+        margin-left: 23%  !important;
+    }
+    div#signupform, div#loginform{
+        width:100%;
+    }
+    .login-btn-mobileView{
+        top: 56%;
+        -ms-transform: translateY(-50%);
+        transform: translateX(20%);
+    }
+    div#signupform.mobile-view-signup h1{
+        padding-left: 23%;
+    }
+    div#signupform.mobile-view-signup .help-tip{
+        top: 25%;
+        right: 3%;
+    }
+    div#signupform.mobile-view-signup .done_btn{
+        margin-right: 9px;
+    }
+    div#signupform.mobile-view-signup .back_link{
+        margin-left: 9px;
+    }
+    .forgot_password_heading{
+        padding-left: 17px !important;
+    }
+    .back_link{
+        margin-left: 6px;
+    }
+    button.forgot_password_btn.done_btn {
+        margin-right: 10px;
+    }
+}
+
+button.forgot_password_btn{
+    float:right;
+}
+#first_part{
+    display: block;
+}
+
+#second_part{
+    display: none;
+}
+
+
+
+.help-tip{
+    position: absolute;
+        top: 43%;
+    right: 1%;
+    text-align: center;
+    background-color: #29b6f6;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    line-height: 26px;
+    cursor: default;
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+
+  .help-tip:hover {
+    cursor: pointer;
+    background-color: #ccc;
+  }
+  
+  .help-tip:before {
+    content: '?';
+    font-weight: 700;
+    color: #fff;
+  }
+  
+  .help-tip p {
+    visibility: hidden;
+    opacity: 0;
+    text-align: left;
+    background-color: #039be5;
+    padding: 20px;
+    width: 300px;
+    position: absolute;
+    border-radius: 4px;
+    right: -4px;
+    color: #fff;
+    font-size: 13px;
+    line-height: normal;
+    transform: scale(0.7);
+    transform-origin: 100% 0%;
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+  
+  .help-tip:hover p {
+    cursor: default;
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1.0);
+  }
+  
+  .help-tip p:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-bottom-color: #039be5;
+    right: 10px;
+    top: -12px;
+  }
+  
+  .help-tip p:after {
+    width: 100%;
+    height: 40px;
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+  }
+  
+  .help-tip a {
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .help-tip a:hover, .help-tip a:focus {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+
+.done_btn{
+    margin-left: auto !important;
+}
+.verification_btn {
+    display: inline-flex;
+    width: 100%;
+}
+.back_link{
+    margin-top: 43px;
+    text-decoration: none;
+    color: black;
+}
+.verification_heading {
+    padding-left: 37px !important;
+    margin-bottom: 47px;
+}
+.forgot_password {
+    float: left;
+    text-decoration: none;
+    color: black;
+    margin-left: 7px;
+}
+.login_btn {
+    float: right;
+    margin-right: 2px;
+}
+.main_logo{z-index: 9999;position: relative;
+    height: 61px;padding: 14px;
+}

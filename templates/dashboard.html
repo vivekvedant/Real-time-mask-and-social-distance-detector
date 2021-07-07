@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="{% static '\styles\dashboard_main.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel = "stylesheet" href = "http://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+        <link rel = "stylesheet" href="{% static '\styles\intlTelInput.css' %}">
+
+       
+        {% block title %}
+         <title>
+             {% if request.resolver_match.url_name == 'users'%} Users {% endif %}
+         </title>
+        {% endblock title %}
+    </head>
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header__toggle">
+                <i class='bx bx-menu' id="header-toggle"></i>
+            </div>
+
+            <div class="header__img">
+                <!-- <img src="assets/img/perfil.jpg" alt=""> -->
+            </div>
+        </header>
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav__logo">
+                        <!-- <i class='bx bx-layer nav__logo-icon'></i> -->
+                        <img src = "{% static '\images\logo_1.png' %}"  class = "dashboard_logo">
+                        <img src = "{% static '\images\mini_logo.png' %}" class = 'mini_logo'>
+                        <!-- <span class="nav__logo-name">Alert System</span> -->
+                    </a>
+
+                    <div class="nav__list">
+                        <a href = "{% url 'users' %}" class="nav__link  {% if request.resolver_match.url_name == 'users' %}active{% endif %}">
+                            <i class='bx bx-user nav__icon' ></i>
+                            <span class="nav__name">Users</span>
+                        </a>
+                        
+                        <a href="{% url 'cctv_view' %}" class="nav__link  {% if request.resolver_match.url_name == 'cctv_view' %}active{% endif %}">
+                            <i class='bx bx-cctv nav__icon'></i>
+                            <span class="nav__name">CCTV</span>
+                        </a>
+
+                       
+                    </div>
+                </div>
+
+                <a href="{% url 'logout' %}" class="nav__link">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <span class="nav__name">Log Out</span>
+                </a>
+            </nav>
+        </div>
+          
+        
+        {% block body %} 
+        
+        {% endblock body %}
+        <!--===== MAIN JS =====-->
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src  ="http://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.1/sweetalert.min.js"></script>
+        <script src = "{% static '\scripts\intlTelInput.js' %}"></script>
+        <script src="{% static '\scripts\dashboard_main.js' %}"></script>
+    </body>
+</html>

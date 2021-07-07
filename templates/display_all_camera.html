@@ -1,0 +1,26 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+<div class = "container cctv-body">
+
+    <div class = "row video_row" >
+      {% for cctv_data in cctv_datas %}
+        {% if cctv_data.mask_detection %}
+        <div class = "col-md-6 video-col">
+          <img src="{% url 'mask_feed' mask_camera_ip=cctv_data.server_url %}" id = "vid">
+              
+        </div>
+        {% endif %}
+        {% if cctv_data.social_distance %}
+        <div class = "col-md-6 video-col">
+          <img src="{% url 'predistraion_feed' predistraion_camera_ip=cctv_data.server_url %}" id = "vid">
+              
+        </div>
+        {% endif %}
+
+        {% endfor %}
+    </div>
+   
+    
+    
+</div>
+{% endblock body %}

@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+        <div id = "registration-main">
+            <div id = "loginmsg"> 
+                <h1>Welcome Back,</h1> 
+                <!-- <p>To keep connected with us <br>please login with your personal info</p> -->
+                <a href = "{% url 'login'%}">    <button id = "loginBtn">Login</button></a>
+                
+            </div>
+           
+        </div>
+        
+            <div id = "signupform">
+            <h1 class = "verification_heading">Verification</h1>
+            
+            
+            <form action = "/verification/" method = "post">    
+            {% csrf_token %}
+            
+              <div id = "first_part">
+               
+                <div class = "fieldWrapper"  id = "signup_code_field">
+                   {% if wrong_code %}<div class="errors"> <div class = "error"> {{ wrong_code }}</div></div>{% endif %} 
+                   {% if code_required %}<div class="errors"> <div class = "error"> {{ code_required }}</div></div>{% endif %} 
+                   <label for  = "code" class = "form-labels" name = "code">Code:</label><br>
+                   <div class="help-tip">
+                        <p>Please check your telegram for the code</p>
+                   </div>
+                   <input type="password" id="code" name = "code">
+                   
+               </div> 
+               <div class = "verification_btn">
+                <a href="{{request.META.HTTP_REFERER}}" class = "back_link"><i class='bx bx-arrow-back'></i>Back</a>
+                <button type = "submit" class="done_btn">Signup</button>
+               </div>
+               
+              </div>
+              
+            </form>
+           
+        </div>
+    </div>
+
+
+   
+         <div id = "signupform" class = "mobile-view-signup verification">
+           
+         
+            <h1>Verification</h1>
+            <form action = "/verification/" method = "post">    
+                {% csrf_token %}
+                
+                  <div id = "first_part">
+                   
+                    <div class = "fieldWrapper"  id = "signup_code_field">
+                       {% if wrong_code %}<div class="errors"> <div class = "error"> {{ wrong_code }}</div></div>{% endif %} 
+                       <label for  = "code" class = "form-labels" name = "code">Code:</label><br>
+                       <div class="help-tip">
+                            <p>Please check your telegram for the code</p>
+                       </div>
+                       <input type="password" id="code" name = "code">
+                       
+                   </div> 
+                   <div class = "verification_btn">
+                    <a href="{{request.META.HTTP_REFERER}}" class = "back_link"><i class='bx bx-arrow-back'></i>Back</a>
+                    <button type = "submit" class="done_btn">Signup</button>
+                   </div>
+                   
+                  </div>
+                  
+                </form>
+        
+        </div>
+        
+
+{% endblock body %}
+

@@ -1,0 +1,58 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+<div class = "container cctv-body">
+    <div class = "row">
+      <div class = "col-md-12">
+        {% for cctv_data in cctv_datas %}
+        <form action = "{% url 'edit_cctv' cctv_data.cctv_name %}" method = "POST">
+          {% csrf_token %}
+         
+          <div class = "fieldWrapper">
+            {% if cctv_name_validation %}<div class="errors"> <div class = "error"> {{ cctv_name_validation }}</div></div>{% endif %}
+                <label  for = "{{ cttv_form.cctv_name.id_for_label }}"class = "form-labels">Name:</label><br>
+                <!-- {{ cttv_form.cctv_name }} -->
+                
+                <input type="text" name="cctv_name" maxlength="100" required="" id="id_cctv_name" value = "{{ cctv_data.cctv_name }}">
+          </div>
+            <div class = "fieldWrapper">
+                {% if cctv_validation %}<div class="errors"> <div class = "error"> {{ cctv_validation }}</div></div>{% endif %}
+                    <label  for = "{{ cttv_form.server_url.id_for_label }}"class = "form-labels">Server Url:</label><br>
+                    <!-- {{ cttv_form.server_url }} -->
+                    <input type="text" name="server_url" maxlength="200" required="" id="id_server_url"  value = "{{ cctv_data.server_url }}">
+            </div>
+            {% if Detection_required %}<div class="errors"> <div class = "error"> {{ Detection_required }}</div></div>{% endif %}
+            <div class = "fieldWrapper">
+                <label  for = "{{ cttv_form.mask_detection.id_for_label }}"class = "form-labels">Mask Detection:</label>
+                  <!-- {{ cttv_form.mask_detection }} -->
+                  <input type="checkbox" name="mask_detection" id="id_mask_detection" {% if cctv_data.mask_detection %} checked {% endif %}>
+            </div>
+          <div class = "fieldWrapper">
+             <label  for = "{{ cttv_form.social_distance.id_for_label }}"class = "form-labels">Social Distance:</label>
+                <!-- {{ cttv_form.social_distance }} -->
+                <input type="checkbox" name="social_distance" id="id_social_distance" {% if cctv_data.social_distance %} checked {% endif %}>
+          </div>
+          
+            <button type="submit" class="btn btn-default update-btn" >Update Cttv</button>
+            <div class = "row video_row" >
+              {% for cctv_data in cctv_datas %}
+                {% if cctv_data.mask_detection %}
+                <div class = "col-md-6 video-col">
+                  <img src="{% url 'mask_feed' mask_camera_ip=cctv_data.server_url %}" id = "vid">
+                      
+                </div>
+                {% endif %}
+                {% if cctv_data.social_distance %}
+                <div class = "col-md-6 video-col">
+                  <img src="{% url 'predistraion_feed' predistraion_camera_ip=cctv_data.server_url %}" id = "vid">
+                      
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+          
+        </form>
+        {% endfor %}
+        </div>
+        </div>
+        </div>
+{% endblock body %}

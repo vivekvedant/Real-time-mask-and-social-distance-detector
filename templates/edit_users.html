@@ -1,0 +1,32 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+<div class = "container cctv-body">
+    <div class = "row">
+      <div class = "col-md-12">
+        {% for Telegram_users_data in Telegram_users_datas %}
+        <form action = "{% url 'edit_user'  Telegram_users_data.username %}" method = "POST">
+          {% csrf_token %}
+         
+          <div class = "fieldWrapper">
+                  {% if User_not_exist %} <div class="errors"> <div class = "error"> {{ User_not_exist }}</div></div>{% endif %} 
+                  {% if User_already_exist %} <div class="errors"> <div class = "error"> {{ User_already_exist }}</div></div>{% endif %} 
+                <label  for = "{{ Telegram_users_data.username.id_for_label }}"class = "form-labels">Username: </label><br>
+                <!-- {{ cttv_form.cctv_name }} -->
+                
+                <input type="text" name="username" maxlength="100"  id="id_username" value = "{{ Telegram_users_data.username }}">
+          </div>
+            <div class = "fieldWrapper">
+                {% if Group_not_exist %}<div class="errors"> <div class = "error"> {{ Group_not_exist }}</div></div>{% endif %} 
+                    <label  for = "{{ Telegram_users_data.group_name }}"class = "form-labels">Group Name: </label><br>
+                    <!-- {{ cttv_form.server_url }} -->
+                    <input type="text" name="group_name" maxlength="100"  id="id_group_name"  value = "{{ Telegram_users_data.group_name }}">
+            </div>
+          
+            <button type="submit" class="btn btn-default update-btn" >Update users</button>
+          
+        </form>
+        {% endfor %}
+        </div>
+        </div>
+        </div>
+{% endblock body %}

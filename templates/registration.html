@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+        <div id = "registration-main">
+            <div id = "loginmsg"> 
+                <h1>Welcome Back,</h1> 
+                <!-- <p>To keep connected with us <br>please login with your personal info</p> -->
+                <a href = "{% url 'login'%}">    <button id = "loginBtn">Login</button></a>
+                
+            </div>
+           
+        </div>
+        
+            <div id = "signupform">
+            <h1>Signup</h1>
+            
+           
+            <form action = "/registration/" method = "post">    
+            {% csrf_token %}
+            
+              <!-- <div id = "first_part">
+                <ul id="progressbar">
+                    <li class="active">Personal Details</li>
+                    <li>Phone Verification</li>
+                    
+                </ul> -->
+                <div class = "fieldWrapper"  id = "signup_username_field">
+                    {% comment %} {{username_validation }} {% endcomment %}
+                    {% if username_exist %}<div class="errors"> <div class = "error"> {{username_exist }}</div></div>{% endif %}
+                    {% if username_validation %}<div class="errors"> <div class = "error"> {{username_validation }}</div></div>{% endif %}
+                   
+                   {% comment %} {% if username_validation %}<div class="errors"> <div class = "error"> {{username_validation }}</div></div>{% endif %} {% endcomment %}
+                   <label for  = "{{ registrationform.username.id_for_label }}" class = "form-labels">Username:</label><br>
+                   <input type="text" name="username" maxlength="100" id="id_username">
+                   
+               </div> 
+               <div class = "fieldWrapper" id = "signup_password_field">
+               {% if password_validation %}<div class="errors"> <div class = "error"> {{password_validation }}</div></div>{% endif %}
+                   <label  for = "{{ registrationform.password.id_for_label }}"class = "form-labels">Password:</label><br>
+                   <input type="password" name="password" maxlength="100" id="id_password">
+                </div>
+                <div class = "fieldWrapper" id = "signup_phone_field">
+                    {% if Wrong_phone %}<div class="errors"> <div class = "error"> {{Wrong_phone }}</div></div>{% endif %}
+                    {% if phone_validation %}<div class="errors"> <div class = "error"> {{phone_validation }}</div></div>{% endif %}
+                        <label  for = "{{ registrationform.password.id_for_label }}"class = "form-labels">PhoneNumber:</label><br>
+                        <input type="text" name="PhoneNumber" maxlength="15" id="id_PhoneNumber">
+                </div>
+               <button class = "signup_next_btn">Next</button>
+              </div>
+              
+            </form>
+           
+        </div>
+    </div>
+
+
+   
+       <div id = "signupform" class = "mobile-view-signup">
+            <h1>Signup</h1>
+            <!-- <div id = "first_part">
+                <ul id="progressbar" class = "mobile_view">
+                    <li>Personal Details</li>
+                    <li  class="active">Phone Verification</li>
+                    
+                </ul>
+            </div> -->
+            <form action = "/registration/" method = "post">
+            {% csrf_token %}
+            <div class = "fieldWrapper"  id = "signup_username_field">
+                {% comment %} {{username_validation }} {% endcomment %}
+                {% if username_exist %}<div class="errors"> <div class = "error"> {{username_exist }}</div></div>{% endif %}
+                {% if username_validation %}<div class="errors"> <div class = "error"> {{username_validation }}</div></div>{% endif %}
+               
+               {% comment %} {% if username_validation %}<div class="errors"> <div class = "error"> {{username_validation }}</div></div>{% endif %} {% endcomment %}
+               <label for  = "{{ registrationform.username.id_for_label }}" class = "form-labels">username:</label><br>
+               <input type="text" name="username" maxlength="100" id="id_username">
+               
+           </div> 
+           <div class = "fieldWrapper" id = "signup_password_field">
+           {% if password_validation %}<div class="errors"> <div class = "error"> {{password_validation }}</div></div>{% endif %}
+               <label  for = "{{ registrationform.password.id_for_label }}"class = "form-labels">Password:</label><br>
+               <input type="password" name="password" maxlength="100" id="id_password">
+            </div>
+            <div class = "fieldWrapper" id = "signup_phone_field">
+                {% if Wrong_phone %}<div class="errors"> <div class = "error"> {{Wrong_phone }}</div></div>{% endif %}
+                {% if phone_validation %}<div class="errors"> <div class = "error"> {{phone_validation }}</div></div>{% endif %}
+                    <label  for = "{{ registrationform.password.id_for_label }}"class = "form-labels">PhoneNumber:</label><br>
+                    <input type="text" name="PhoneNumber" maxlength="15" id="id_PhoneNumber">
+            </div>
+           <button class = "login-btn-mobileView" >Next</button>
+                <a href = "{% url 'login' %}"><button type = "button" id = "create-accountbtn" class = "loginBtn">Login</button></a>
+            </div>
+            </form>
+
+        </div>
+
+{% endblock body %}
+

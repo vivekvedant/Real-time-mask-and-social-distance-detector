@@ -1,0 +1,166 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+
+<div class = "container user_table">
+    <div>
+    
+    <h1 class = "heading">Add Users </h1>
+    
+      <form action = "{% url 'add_users' %}" method ="POST">
+              {% csrf_token %}
+
+                 <div class = "form-group edit-form-group adduser_userfield">
+                  {% if Username_required  %} <div class="errors" style = "position:absolute"> <div class = "error"> {{ Username_required }}</div></div>{% endif %} 
+                  {% if User_not_exist %} <div class="errors" style = "position:absolute"> <div class = "error"> {{ User_not_exist }}</div></div>{% endif %} 
+                  {% if User_already_exist %} <div class="errors" style = "position:absolute"> <div class = "error"> {{ User_already_exist }}</div></div>{% endif %} 
+                  <div class="help-tip username">
+                    <p>Username of the user in telegram</p>
+                  </div>
+                    <label class = "form-labels">Username:</label><br>
+                    <input type="text" name="username" maxlength="100"  id="id_username">
+                 </div>
+                 <div class = "form-group edit-form-group adduser_groupfield">
+                  {% if group_name_required %} <div class="errors" style = "position:absolute"> <div class = "error"> {{ group_name_required }}</div></div>{% endif %} 
+                  {% if Group_not_exist %}<div class="errors" style = "position:absolute"> <div class = "error"> {{ Group_not_exist }}</div></div>{% endif %} 
+                  <div class="help-tip groupname">
+                    <p>Groupname in telegram</p>
+                  </div>
+                    <label class = "form-labels">Group Name</label><br>
+                   
+                    
+                    <input type="text" name="group_name" maxlength="100"  id="id_group_name">
+                 </div>
+                 <div class = "form-group edit-form-group">
+                  <input type = "hidden" name="login_user" value = {{ username }}>
+                 </div>
+                 <button type="submit" class="btn btn-default update-btn" >Submit</button>
+                 
+             </form>
+    </div>
+{% comment %} 
+    <div>
+        <button class="add_users" data-toggle="modal" data-target="#add_users">
+            Add Users
+        </button>
+    </div> {% endcomment %}
+    <h2 class = "heading">Users</h2>
+
+    <!-- <div class="container"> -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table >
+           
+              <thead>
+                <tr>
+                  <th>Sr No</th>
+                  <th>Name</th>
+                  <th>Group Name</th>
+                  <th>Action</th>
+                  
+                </tr>
+                <tbody>
+                  {% for Telegram_users_data in  Telegram_users_datas %}
+              
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ Telegram_users_data.username }}</td>
+                    <td> {{ Telegram_users_data.group_name }} </td>
+                    <td>
+                      <a href ="{% url 'edit_user'  Telegram_users_data.username %}"><i class='bx bx-edit user-edit'></i></a>
+                      <a href = "{% url 'delete_user'  username=Telegram_users_data.username  group_name=Telegram_users_data.group_name %}"> <i class='bx bx-trash user-delete'></i> </a>
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                  
+                </tbody>
+              <tfoot>
+               
+              </tfoot>
+            </table>
+          </div>
+         
+        </div>
+      </div>
+      <div class="modal fade" id="Edit_users" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content user-model-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Details</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+             <form>
+              {% csrf_token %}
+              <div class = "form-group edit-form-group adduser_userfield">
+               {% if User_not_exist %} <div class="errors"> <div class = "error"> {{ User_not_exist }}</div></div>{% endif %} 
+               {% if User_already_exist %} <div class="errors"> <div class = "error"> {{ User_already_exist }}</div></div>{% endif %} 
+                 <label class = "form-labels">Username:</label><br>
+                 {% comment %} <input type = "text" id = "username-edit-input" name = "username"> {% endcomment %}
+                 {{ telegram_user_form_add.username }}
+              </div>
+              <div class = "form-group edit-form-group adduser_groupfield">
+               {% if Group_not_exist %}<div class="errors"> <div class = "error"> {{ Group_not_exist }}</div></div>{% endif %} 
+                 <label class = "form-labels">Group Name</label><br>
+                 {% comment %} <input id="add_users_number" name="phone" type="tel" class = "phone-edit-input"> {% endcomment %}
+                 
+                 {{ telegram_user_form_add.group_name  }}
+              </div>
+              <!-- <div class = "form-group edit-form-group">
+               <input type = "hidden" name="login_user" value = {{ username }}>
+              </div> -->
+              <button type="submit" class="btn btn-default update-btn" >Submit</button>
+             </form>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-default update-btn" >Update</button>
+              <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+            </div> -->
+          </div>
+          
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="add_users" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content user-model-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add users</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              
+            </div>
+            <div class="modal-body">
+             <form action = "{% url 'add_users' %}" method ="POST">
+              {% csrf_token %}
+                 <div class = "form-group edit-form-group">
+                    {% if User_already_exist %} <div class="errors"> <div class = "error"> {{ User_already_exist }}</div></div>{% endif %} 
+                    <label class = "form-labels">Username:</label><br>
+                    {% comment %} <input type = "text" id = "username-edit-input" name = "username"> {% endcomment %}
+                    {{ telegram_user_form_add.username }}
+                 </div>
+                 <div class = "form-group edit-form-group">
+                    {% if Group_not_exist %}<div class="errors"> <div class = "error"> {{ Group_not_exist }}</div></div>{% endif %} 
+                    <label class = "form-labels">Group Name</label><br>
+                    {% comment %} <input id="add_users_number" name="phone" type="tel" class = "phone-edit-input"> {% endcomment %}
+                    
+                    {{ telegram_user_form_add.group_name  }}
+                 </div>
+                 <div class = "form-group edit-form-group">
+                  <input type = "hidden" name="login_user" value = {{ username }}>
+                 </div>
+                 <button type="submit" class="btn btn-default update-btn" >Submit</button>
+                  <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
+             </form>
+            
+          </div>
+          
+        </div>
+      </div>
+{% endblock body %}

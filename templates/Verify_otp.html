@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block body %}
+
+        <div id = "login-main">
+            
+            <div id = "signupmsg">
+                <h1>Hello Friends,</h1> 
+                <!-- <p>Enter your personal details and start journey with us</p> -->
+               <a href = "{% url 'registration'%}"> <button id  = "signupBtn">Signup</button></a>
+            </div>
+        </div>
+        
+        <div id  = "loginform">
+            <!-- <h1>Login</h1> -->
+            <h1 class = "verify_otp_heading">Verify OTP</h1>
+            
+            <form action = "/verify_otp/" method = "post">
+            {% csrf_token %}
+               <div class = "fieldWrapper " id = "username_field">
+                    {% if wrong_code %}<div class="errors"> <div class = "error"> {{ wrong_code }}</div></div>{% endif %} 
+                      {{ otp_form.otp_code.errors}}
+                    <label for  = "{{ otp_form.otp_code.id_for_label }}" class = "form-labels">OTP:</label><br>
+                    <div class="help-tip">
+                        <p>Please check your telegram for the code</p>
+                   </div>
+                    <input type="password" name="otp" maxlength="100" id="id_otp">
+                  
+                    
+                </div> 
+                <a href = "{% url 'forgot_password' %}">Forgot password ?</a>
+                <button type = "submit">Next</button>
+            </form>
+            
+            
+            
+        </div>
+
+           
+        </div>
+
+        
+        
+
+    </div>
+
+
+    <div id = "mobile-view">
+        <div id  = "loginform" class = "mobile-view-login">
+            <h1 class = "form-heading">Login</h1>
+             <form action = "/login/" method = "post">
+                {% csrf_token %}
+                <div class = "fieldWrapper " id = "mobile_username_field">
+                  {% if messages %}
+                        <ul class="errorlist">
+                            {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {% if message.level == 100 %} {% endif %}
+                                {{ message }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                      {{ loginform.username.errors}}
+                    <label for  = "{{ loginform.username.id_for_label }}" class = "form-labels">Username:</label><br>
+                    {{ loginform.username}}
+                  
+                    
+                </div> 
+                <div class = "fieldWrapper" id = "mobile_password_field">
+                     {{ loginform.password.errors}}
+                    <label  for = "{{ loginform.password.id_for_label }}"class = "form-labels">Password:</label><br>
+                    {{ loginform.password}}
+                   
+                    
+                </div>  
+                <button class = "login-btn-mobileView">Login</button><br>
+                <a href = "{% url 'registration' %}"><button type = "button" id = "create-accountbtn">Create an account</button></a>
+                <!-- <a href = "{% url 'registration'%}"> <button id  = "create-accountbtn">Signup</button></a> -->
+            </form>
+        </div>
+      
+
+{% endblock body %}
+

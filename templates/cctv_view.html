@@ -1,0 +1,94 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+<div class = "container cctv-body">
+    <div class = "row">
+      <div class = "col-md-12">
+        <!-- <h4 id="form-title">Add CCTV</h4> -->
+        <div>
+          <h1 class = "heading">Add Cttv </h1>
+            <form action = "{% url 'add_cctv' %}" method = "POST">
+              {% csrf_token %}
+              <div class = "fieldWrapper">
+                <input type = "hidden" name="login_user" value = "{{ login_user }}">
+                {% if cctv_name_validation %}<div class="errors" style = "position:absolute"> <div class = "error"> {{ cctv_name_validation }}</div></div>{% endif %}
+                {% if cctv_name_exist %}<div class="errors" style = "position:absolute"> <div class = "error" > {{ cctv_name_exist }}</div></div>{% endif %}
+                <div class="help-tip cctv_name">
+                  <p>Name for your cctv </p>
+                </div>
+                    <label  for = "{{ cttv_form.cctv_name.id_for_label }}"class = "form-labels">Name:</label><br>
+                    <input type="text" name="cctv_name" maxlength="100"  id="id_cctv_name">
+              </div>
+                <div class = "fieldWrapper">
+                    {% if server_url_valid %}<div class="errors" style = "position:absolute"> <div class = "error" > {{ server_url_valid }}</div></div>{% endif %}
+                    <div class="help-tip server_url">
+                      <p>URL of your CCTV</p>
+                    </div>
+                        <label  for = "{{ cttv_form.server_url.id_for_label }}"class = "form-labels">Server Url:</label><br>
+                        <input type="text" name="server_url" maxlength="200" id="id_server_url">
+                </div>
+                {% if Detection_required %}<div class="errors"> <div class = "error"> {{ Detection_required }}</div></div>{% endif %}
+                <div class = "fieldWrapper">
+                 
+                    <label  for = "{{ cttv_form.mask_detection.id_for_label }}"class = "form-labels">Mask Detection:</label>
+                    <input type="checkbox" name="mask_detection" id="id_mask_detection">
+                </div>
+              <div class = "fieldWrapper">
+                 <label  for = "{{ cttv_form.social_distance.id_for_label }}"class = "form-labels">Social Distance:</label>
+                 <input type="checkbox" name="social_distance" id="id_social_distance">
+              </div>
+                <button type="submit" class="btn btn-default update-btn" >Add Cttv</button>
+            </form>
+         </div>
+      </div>
+     
+    </div>
+    <h2 class = "heading">CCTV</h2>
+
+    <!-- <div class="container"> -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table >
+            
+              <thead>
+                <tr>
+                  <th>Sr No</th>
+                  <th>CCtv Name</th>
+                  <th>Mask Detection</th>
+                  <th>Social Distance</th>
+                  <th>Action</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for cctv_data in  cctv_datas %}
+            
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ cctv_data.cctv_name }}</td>
+                  <td class = "detection_data">{% if cctv_data.mask_detection %} <span id ="tick_mark" >&#10003;</span>{% else %}<span id = "cross_mark">
+                    &#10005;</span>{% endif %}</td>
+                  <td class = "detection_data">{% if cctv_data.social_distance %} <span id ="tick_mark">&#10003;</span>{% else %}<span id = "cross_mark">
+                    &#10005;</span>{% endif %}</td>
+                  <td>
+                    <a href = "{% url 'edit_cctv' cctv_data.cctv_name %}"><i class='bx bx-edit user-edit' data-toggle="modal" data-target="#Edit_users"></i></a>
+                    <a href = "{% url 'delete_cctv' cctv_data.cctv_name %}"> <i class='bx bx-trash user-delete'  id="delete_btn"></i> </a>
+                  </td>
+                  
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+              <tfoot>
+              
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <a href = "{% url 'display_all_camera' %}"><button class="btn btn-default update-btn" >View All Camera</button></a>
+   
+    
+    
+</div>
+{% endblock body %}
