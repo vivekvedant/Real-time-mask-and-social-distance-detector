@@ -1,18 +1,6 @@
 version: "3.9"
    
 services:
-  django_app:
-    restart: always
-    image: django_app
-    container_name: django_app
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-        - .:/code
-    ports:
-        - "8000:8000"
-    depends_on:
-      - postgres_db
-      - telethon_db
   postgres_db:
     restart: always
     image: postgres
@@ -33,6 +21,19 @@ services:
       - POSTGRES_DB=telethon
       - POSTGRES_USER=telethon_user
       - POSTGRES_PASSWORD=postgres
+  django_app:
+    restart: always
+    image: django_app
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+        - .:/code
+    ports:
+        - "8000:8000"
+    depends_on:
+      - postgres_db
+      - telethon_db
+  
  
 volumes: 
   data:
