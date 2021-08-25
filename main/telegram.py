@@ -11,25 +11,26 @@ from alchemysession import AlchemySessionContainer
 from sqlalchemy.engine import url as sa_url
 import sqlalchemy
 from telethon.tl.types import PeerUser
+from pathlib import Path
 
 class Messanger:
     def __init__(self,user_number):
         self.api_id = 3105537
         self.api_hash  = '013bcb2c5a2c2e4af00c3ddc379d0fcb'
         self.phone = user_number
-        
-        
-     
+
+
+
     def get_client(self):
         loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop) 
+        asyncio.set_event_loop(loop)
         my_sqlalchemy_engine = sqlalchemy.create_engine("postgresql+psycopg2://telethon_user:postgres@telethon_db:5432/telethon")
         container = AlchemySessionContainer(engine=my_sqlalchemy_engine)
         session = container.new_session(self.phone)
         client = TelegramClient(session, self.api_id, self.api_hash, loop=loop)
         client.connect()
         return client
-     
+
     def get_otp(self,client):
         otp_sended = client.send_code_request(self.phone)
         return otp_sended.phone_code_hash
@@ -40,7 +41,7 @@ class Messanger:
     def get_groupid(self,client,group_name):
         dialog = client.get_dialogs()
         for d in dialog:
-            
+
             if d.title == group_name:
                 group_id = d.entity.id
                 break
@@ -50,8 +51,8 @@ class Messanger:
              raise  ValidationError("Group don't exist")
         else:
             return group_id
-            
-    
+
+
     def user_exist(self,client,username,group_name):
         group_id = self.get_groupid(client,group_name)
         users = client.iter_participants(group_id)
@@ -61,19 +62,19 @@ class Messanger:
                     user_exist_checker = True
                 else:
                     user_exist_checker = False
-            
+
             if user_exist_checker:
                 raise  ValidationError("User already exists")
 
-        
 
-    def username_exist(self,client,username): 
+
+    def username_exist(self,client,username):
         try:
-            client.get_input_entity(username)   
+            client.get_input_entity(username)
         except:
              raise ValidationError("User does not exist")
 
-        
+
 
     def add_users(self,client,username,group_name):
         group_id = self.get_groupid(client,group_name)
@@ -82,19 +83,21 @@ class Messanger:
             username,
             fwd_limit=50
         ))
-        
+
 
     def delete_user(self,client,username,group_name):
          group_id = self.get_groupid(client,group_name)
          client.kick_participant(group_id,username)
-                    
+
 
 def send_image(username):
+    if not os.path.isdir(f"./static/detection/{username}"):
+        os.mkdir(f"./static/detection/{username}")
     image_urls = glob.glob(f"./static/detection/{username}",recursive=True)
     Telegram_users_data = Telegram_users.objects.all().filter(login_user = username)
     user_data = Customer.objects.all().filter(username = username)
 
-    for(tele_user,user_data) in zip(Telegram_users_data,user_data):    
+    for(tele_user,user_data) in zip(Telegram_users_data,user_data):
         user_phone = user_data.PhoneNumber
         group_name = tele_user.group_name
         telegram_obj = Messanger(user_phone)

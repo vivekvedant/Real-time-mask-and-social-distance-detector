@@ -2,11 +2,12 @@ import os
 import webbrowser
 
 
-#build the container
-print("=========================================== \n")
-print("Building django container \n")
-print("=========================================== \n")
-os.system("docker build --tag django_app . ")
+# #build the container
+# print("=========================================== \n")
+# print("Building  container \n")
+# print("=========================================== \n")
+# os.system("docker compose build ")
+
 
 
 
@@ -14,7 +15,7 @@ os.system("docker build --tag django_app . ")
 
 #run the container
 print("=========================================== \n")
-print("create database \n")
+print("Build and Run container\n")
 print("=========================================== \n")
 os.system("docker-compose up -d")
 
@@ -23,6 +24,7 @@ os.system("docker-compose up -d")
 print("=========================================== \n")
 print("Migrating table into database \n")
 print("=========================================== \n")
+
 os.system( "docker-compose run django_app /usr/local/bin/python manage.py migrate")
 
 

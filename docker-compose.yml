@@ -1,5 +1,5 @@
 version: "3.9"
-   
+
 services:
   postgres_db:
     restart: always
@@ -7,6 +7,8 @@ services:
     container_name: postgres_db
     volumes:
       - ./data/Main_db:/var/lib/postgresql/data
+    networks:
+      - djangonetwork
     environment:
       - POSTGRES_DB=Alert_system
       - POSTGRES_USER=postgres
@@ -21,9 +23,11 @@ services:
       - POSTGRES_DB=telethon
       - POSTGRES_USER=telethon_user
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - djangonetwork
   django_app:
     restart: always
-    image: django_app
+    build: .
     container_name: django_app
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -33,8 +37,13 @@ services:
     depends_on:
       - postgres_db
       - telethon_db
-  
- 
-volumes: 
+    networks:
+      - djangonetwork
+
+
+volumes:
+  static_volume:
   data:
-    
+networks:
+  djangonetwork:
+    driver: bridge
